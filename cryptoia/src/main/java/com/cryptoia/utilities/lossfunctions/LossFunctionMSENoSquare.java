@@ -2,11 +2,9 @@ package com.cryptoia.utilities.lossfunctions;
 
 import com.cryptoia.utilities.LossFunction;
 
-public class LossFunctionMSE implements LossFunction{
-    
+public class LossFunctionMSENoSquare implements LossFunction{
     @Override
     public Double lossFunction(Double yPredit, Double yReel){
-        return Math.pow(yPredit - yReel, 2);
+        return yPredit - yReel;
     }
-    
 }

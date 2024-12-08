@@ -3,8 +3,8 @@ package com.cryptoia.neuron;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cryptoia.utilities.LossFunction;
 import com.cryptoia.utilities.Pair;
-import com.cryptoia.utilities.lossfunctions.LossFunctionMSE;
 
 public class Neuron{
     Double biases;
@@ -37,7 +37,7 @@ public class Neuron{
         return 1/(1+ Math.exp(-weightedSum()));
     }
     //Return for one neuron the loss function 
-    public static Double lossFunction(Double yPredict, Double yReal){
-        return new LossFunctionMSE().lossFunction(yPredict, yReal);
+    public static Double lossFunction(Double yPredict, Double yReal, LossFunction l){
+        return l.lossFunction(yPredict, yReal);
     }
 }

@@ -3,7 +3,10 @@ package com.cryptoia.neuron;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cryptoia.utilities.LossFunction;
 import com.cryptoia.utilities.Pair;
+import com.cryptoia.utilities.lossfunctions.LossFunctionMSE;
+import com.cryptoia.utilities.lossfunctions.LossFunctionMSENoSquare;
 
 public class NeuralNetwork {
     List<List<Neuron>> neuralNetwork;
@@ -56,7 +59,7 @@ public class NeuralNetwork {
         }
         return resultActivation.getLast().getLast();
     }
-    public Double lossFunctionNetwork(List<List<Pair<Double, Double>>> allInputs, List<Double> answer){
+    public List<Double> getLossTab(List<List<Pair<Double, Double>>> allInputs, List<Double> answer, LossFunction l){
         List<Double> sampleTab = new ArrayList<>();
         for(List<Pair<Double, Double>> inputs : allInputs){
             neuralNetwork = new ArrayList<>();
@@ -64,8 +67,13 @@ public class NeuralNetwork {
         }
         List<Double> loss = new ArrayList<>();
         for(Double predict : sampleTab){
-            loss.add(Neuron.lossFunction(predict, answer.get(sampleTab.indexOf(predict))));
+            loss.add(Neuron.lossFunction(predict, answer.get(sampleTab.indexOf(predict)), l));
         }
+        return loss;
+    }
+    public Double lossFunctionNetwork(List<List<Pair<Double, Double>>> allInputs, List<Double> answer){
+        LossFunction l = new LossFunctionMSE();
+        List<Double> loss = getLossTab(allInputs, answer, l);
         Double lossFunctionResult = Double.valueOf(0);
         for(Double d : loss){
             lossFunctionResult += d;
@@ -73,4 +81,15 @@ public class NeuralNetwork {
         lossFunctionResult = (1/loss.size())*lossFunctionResult;
         return lossFunctionResult;
     }
+    public Double derivateLossFunctionNetwork(List<List<Pair<Double, Double>>> allInputs, List<Double> answer){
+        LossFunction l = new LossFunctionMSENoSquare();
+        List<Double> loss = getLossTab(allInputs, answer, l);
+        Double lossFunctionResult = Double.valueOf(0);
+        for(Double d : loss){
+            lossFunctionResult += d;
+        }
+        lossFunctionResult = (2/loss.size())*lossFunctionResult;
+        return lossFunctionResult;
+    }
+
 }
