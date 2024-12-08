@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cryptoia.utilities.Pair;
+import com.cryptoia.utilities.lossfunctions.LossFunctionMSE;
 
 public class Neuron{
     Double biases;
@@ -14,13 +15,16 @@ public class Neuron{
         biases = Double.valueOf(0);
         this.inputs = new ArrayList<>();
     }
-    public Neuron(List inputs){
+    public Neuron(List<Pair<Double, Double>> inputs){
         biases = Double.valueOf(0);
         this.inputs = inputs;
     }
 
     public void setBiases(Double biases){
         this.biases = biases;
+    }
+    public void setInputs(List<Pair<Double, Double>> inputs){
+        this.inputs = inputs;
     }
     public float weightedSum(){
         float output = 0;
@@ -31,5 +35,9 @@ public class Neuron{
     }
     public Double activationFunction(){
         return 1/(1+ Math.exp(-weightedSum()));
+    }
+    //Return for one neuron the loss function 
+    public Double lossFunction(Double yReel){
+        return new LossFunctionMSE().lossFunction(activationFunction(), yReel);
     }
 }
