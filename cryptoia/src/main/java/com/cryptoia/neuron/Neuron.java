@@ -37,7 +37,7 @@ public class Neuron{
         return 1/(1+ Math.exp(-weightedSum()));
     }
     //Return for one neuron the loss function 
-    public Double lossFunction(Double yReel){
-        return new LossFunctionMSE().lossFunction(activationFunction(), yReel);
+    public static Double lossFunction(Double yPredict, Double yReal){
+        return new LossFunctionMSE().lossFunction(yPredict, yReal);
     }
 }
