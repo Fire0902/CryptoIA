@@ -66,8 +66,8 @@ public class NeuralNetwork {
             sampleTab.add(predictionY(inputs));
         }
         List<Double> loss = new ArrayList<>();
-        for(Double predict : sampleTab){
-            loss.add(Neuron.lossFunction(predict, answer.get(sampleTab.indexOf(predict)), l));
+        for (int i = 0; i < sampleTab.size(); i++) {
+            loss.add(Neuron.lossFunction(sampleTab.get(i), answer.get(i), l));
         }
         return loss;
     }
@@ -91,5 +91,22 @@ public class NeuralNetwork {
         lossFunctionResult = (2/loss.size())*lossFunctionResult;
         return lossFunctionResult;
     }
+
+
+    public void updateBiases(Double learningRate, List<List<Pair<Double, Double>>> allInputs, List<Double> answers) {
+        // Obtenez la dérivée de la fonction de perte
+        Double lossDerivative = derivateLossFunctionNetwork(allInputs, answers);
+        
+        for (List<Neuron> layer : neuralNetwork) {
+            for (Neuron neuron : layer) {
+                // Calculez la dérivée de l'activation avec respect au biais
+                Double activationDerivative = neuron.derivativeActivationFunctionWithRespectToBias();
+                
+                // Mise à jour du biais avec la descente de gradient
+                neuron.setBiases(neuron.biases - learningRate * lossDerivative * activationDerivative);
+            }
+        }
+    }
+    
 
 }

@@ -40,4 +40,13 @@ public class Neuron{
     public static Double lossFunction(Double yPredict, Double yReal, LossFunction l){
         return l.lossFunction(yPredict, yReal);
     }
+
+    // Retourne la dérivée de la sortie par rapport au biais
+    public Double derivativeActivationFunctionWithRespectToBias() {
+        // Calcul de la sortie activée
+        Double activation = activationFunction();
+        // Calcul de la dérivée de la fonction sigmoïde
+        return activation * (1 - activation); // σ'(z) = σ(z) * (1 - σ(z))
+    }
+
 }
