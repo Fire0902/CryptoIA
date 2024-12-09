@@ -1,0 +1,7 @@
+com/cryptoia/neuron/NeuralNetwork.class
+com/cryptoia/utilities/lossfunctions/LossFunctionMAE.class
+com/cryptoia/utilities/LossFunction.class
+com/cryptoia/utilities/lossfunctions/LossFunctionMSENoSquare.class
+com/cryptoia/utilities/Pair.class
+com/cryptoia/utilities/lossfunctions/LossFunctionMSE.class
+com/cryptoia/neuron/Neuron.class

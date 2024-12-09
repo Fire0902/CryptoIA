@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: neuralnetworktest.NeuralNetworkTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.021 s <<< FAILURE! - in neuralnetworktest.NeuralNetworkTest
+testLearning  Time elapsed: 0.019 s  <<< ERROR!
+java.lang.IndexOutOfBoundsException: Index -1 out of bounds for length 3
+	at neuralnetworktest.NeuralNetworkTest.testLearning(NeuralNetworkTest.java:37)
+

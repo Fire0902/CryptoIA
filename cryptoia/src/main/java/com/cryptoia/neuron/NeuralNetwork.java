@@ -17,13 +17,18 @@ public class NeuralNetwork {
         resultActivation = new ArrayList<>();
     }
     public void neuralNetworkCreation(int numberOfInputs){
-        if(numberOfInputs>= 1){
+        if(numberOfInputs == 1){
+            List<Neuron> listTemp = new ArrayList<>();
+            listTemp.add(new Neuron());
+            neuralNetwork.add(listTemp);
+        }
+        if(numberOfInputs> 1){
             List<Neuron> listTemp = new ArrayList<>();
             for(int i = 0; i < numberOfInputs; i++){
                 listTemp.add(new Neuron());
             }
             neuralNetwork.add(listTemp);
-            neuralNetworkCreation(numberOfInputs/2);
+            neuralNetworkCreation(numberOfInputs/8);
         }
 
     }
@@ -93,7 +98,7 @@ public class NeuralNetwork {
     }
 
 
-    public void updateBiases(Double learningRate, List<List<Pair<Double, Double>>> allInputs, List<Double> answers) {
+    public Double updateBiases(Double learningRate, List<List<Pair<Double, Double>>> allInputs, List<Double> answers) {
         // Obtenez la dérivée de la fonction de perte
         Double lossDerivative = derivateLossFunctionNetwork(allInputs, answers);
         
@@ -106,6 +111,7 @@ public class NeuralNetwork {
                 neuron.setBiases(neuron.biases - learningRate * lossDerivative * activationDerivative);
             }
         }
+        return lossDerivative;
     }
     
 
